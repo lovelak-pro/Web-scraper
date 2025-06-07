@@ -1,0 +1,15 @@
+{
+  "manifest_version": 3,
+  "name": "Email & Phone Scraper",
+  "version": "1.0",
+  "description": "Extract email addresses and phone numbers from websites",
+  "permissions": ["scripting", "activeTab"],
+  "action": {
+    "default_popup": "popup.html"
+  },
+  "icons": {
+    "16": "assets/icons/icons8-phone-cute-clipart-16.png",
+    "32": "assets/icons/icons8-phone-cute-clipart-32.png",
+    "96": "assets/icons/icons8-phone-cute-clipart-96.png"
+  }
+}
