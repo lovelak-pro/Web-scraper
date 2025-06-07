@@ -9,7 +9,7 @@ I made this simple Chrome extension that extracts and displays all email address
 - Extracts all email addresses and phone numbers from any webpage.
 - Automatically filters results based on a quoted string in your search (e.g., `"+(country-code)"` or `"@gmail.com"`).
 - Clean, user-friendly and ordered results.
-- No buttons or inputs—just open the popup to see results.
+- No buttons or inputs just open the popup to see results.
 
 ---
 
