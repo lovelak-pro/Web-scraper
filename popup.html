@@ -1,20 +1,20 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Email & Phone Scraper</title>
+    <title>Email & Phone No Scraper</title>
     <style>
   body {
     text-align: center;
     margin: 0 0 60px 0;
     padding: 0%;
-    font-family: Arial, sans-serif;
-    background: #acacac;
+    font-family: cursive;
+    background: url(https://i.pinimg.com/736x/f6/f5/fb/f6f5fb6255d884f4241f205958344db4.jpg);
     width: 350px;
     overflow: visible;
   }
   h1{
     font-size: 20px;
-        color: #00796b;
+    color: #fff;
 
     text-shadow: 0 0 10px rgba(255,255,255);
     margin: 20px 0;
@@ -22,26 +22,29 @@
   #result {
     padding: 10px 30px;
     font-size: 14px;
-    color: #222;
+    color: #fff;
   }
   ol {
     padding-left: 20px;
     margin: 0;
+    color: #fff;
+
   }
   ol li {
     margin-bottom: 6px;
-    background: #fff;
+    background: transparent;
+    backdrop-filter: blur(10px);
     border-radius: 4px;
     padding: 4px 8px;
-    box-shadow: 0 1px 2px rgba(0,0,0,0.04);
-    color: #00796b;
+    box-shadow: 0 0 3px #fff;
+    color: #fff;
     font-weight: bold;
     word-break: break-all;
   }
   .how-to-use {
     margin: 0 0 10px 20px;
     font-size: 14px;
-    color: #00796b;
+    color: #fff;
     float: left;
     cursor: pointer;
     text-decoration: underline;
@@ -51,8 +54,8 @@
     position:absolute;
     bottom: 4px;
     margin: 0 20px;
-    font-weight: bold;
-    color: #00796b;
+    font-size: 13px;
+    color: #fff;
     float: left;
   }
   .how-to-use:hover + .tips {
@@ -62,7 +65,7 @@
     </style>
   </head>
   <body>
-    <h1>Email & Phone Scraper v0.0.1</h1>
+    <h1>Email & Phone Scraper v0.1.1</h1>
     <div id="result"></div>
     <p class="how-to-use">For help (Hover me!)</p>
     <p class="tips">Type a url e.g(yourwebsite.com "@gmail.com") and it will get you all the Emails from amazon.com</p>
