@@ -13,9 +13,11 @@ I made this simple Chrome extension that extracts and displays all email address
 
 ---
 
-## Screenshot
-
-## ![Screenshot](assets/Screenshot%20v0.0.1.png)
+## Screenshots
+**Version 0.0.1**  
+## ![Screenshot](assets/Screenshot%20v0.0.1.png) 
+**Version 0.1.1** 
+## ![Screenshot](assets/Screenshot%20v0.1.1.png)
 
 ## How to Use
 
