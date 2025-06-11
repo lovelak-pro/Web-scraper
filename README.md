@@ -1,4 +1,4 @@
-# Email & Phone Scraper Chrome Extension
+# Email & Phone No Scraper Chrome Extension
 
 I made this simple Chrome extension that extracts and displays all email addresses and phone numbers from the currently open website. You can filter results by searching a website and adding a filter string in quotes (e.g., `yourwebsite.com "+(country-code)"` or `yourwebsite.com "@gmail.com"`). The extension automatically scans the page and shows the filtered results in a clean, ordered list.
 
