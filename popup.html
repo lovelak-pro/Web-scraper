@@ -3,72 +3,429 @@
   <head>
     <title>Email & Phone No Scraper</title>
     <style>
-  body {
-    text-align: center;
-    margin: 0 0 60px 0;
-    padding: 0%;
-    font-family: cursive;
-    background: url(https://i.pinimg.com/736x/f6/f5/fb/f6f5fb6255d884f4241f205958344db4.jpg);
-    width: 350px;
-    overflow: visible;
-  }
-  h1{
-    font-size: 20px;
-    color: #fff;
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
 
-    text-shadow: 0 0 10px rgba(255,255,255);
-    margin: 20px 0;
-  }
-  #result {
-    padding: 10px 30px;
-    font-size: 14px;
-    color: #fff;
-  }
-  ol {
-    padding-left: 20px;
-    margin: 0;
-    color: #fff;
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+        background: linear-gradient(180deg, #f8f9fa 0%, #f1f3f5 100%);
+        width: 400px;
+        min-height: 250px;
+        padding: 0;
+        overflow-x: hidden;
+      }
 
-  }
-  ol li {
-    margin-bottom: 6px;
-    background: transparent;
-    backdrop-filter: blur(10px);
-    border-radius: 4px;
-    padding: 4px 8px;
-    box-shadow: 0 0 3px #fff;
-    color: #fff;
-    font-weight: bold;
-    word-break: break-all;
-  }
-  .how-to-use {
-    margin: 0 0 10px 20px;
-    font-size: 14px;
-    color: #fff;
-    float: left;
-    cursor: pointer;
-    text-decoration: underline;
-  }
-  .tips {
-    display: none;
-    position:absolute;
-    bottom: 4px;
-    margin: 0 20px;
-    font-size: 13px;
-    color: #fff;
-    float: left;
-  }
-  .how-to-use:hover + .tips {
-    display: block;
-  }
-</style>
+      .header {
+        background: linear-gradient(135deg, #e3f2fd 0%, #f3e5f5 100%);
+        padding: 24px 20px;
+        text-align: center;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+        position: relative;
+      }
+
+      .theme-toggle {
+        position: absolute;
+        top: 16px;
+        right: 16px;
+        width: 32px;
+        height: 32px;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        outline: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 8px;
+        transition: background-color 0.2s ease, transform 0.2s ease;
+        padding: 0;
+      }
+
+      .theme-toggle:hover {
+        background-color: rgba(0, 0, 0, 0.05);
+        transform: scale(1.1);
+      }
+
+      body.dark-mode .theme-toggle:hover {
+        background-color: rgba(255, 255, 255, 0.1);
+      }
+
+      .theme-toggle .sun-icon,
+      .theme-toggle .moon-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: opacity 0.3s ease, transform 0.3s ease;
+        width: 18px;
+        height: 18px;
+      }
+
+      .theme-toggle .sun-icon {
+        color: #f59e0b;
+        opacity: 1;
+        position: absolute;
+      }
+
+      .theme-toggle .moon-icon {
+        color: #fbbf24;
+        opacity: 0;
+        position: absolute;
+      }
+
+      body.dark-mode .theme-toggle .sun-icon {
+        opacity: 0;
+        transform: rotate(90deg);
+      }
+
+      body.dark-mode .theme-toggle .moon-icon {
+        opacity: 1;
+        transform: rotate(0deg);
+      }
+
+      h1 {
+        font-size: 20px;
+        font-weight: 600;
+        color: #2d3748;
+        margin: 0;
+        letter-spacing: -0.2px;
+      }
+
+      .version {
+        font-size: 11px;
+        color: #718096;
+        margin-top: 6px;
+        font-weight: 400;
+      }
+
+      #result {
+        padding: 16px 20px;
+        min-height: 120px;
+        max-height: 450px;
+        overflow-y: auto;
+      }
+
+      .copy-all-btn {
+        width: 100%;
+        padding: 10px 16px;
+        margin-bottom: 12px;
+        background: linear-gradient(135deg, #a8e6cf 0%, #dcedc1 100%);
+        color: #2d3748;
+        border: 1px solid #a8e6cf;
+        border-radius: 10px;
+        font-size: 13px;
+        font-weight: 600;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        transition: all 0.2s ease;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+      }
+
+      .copy-all-btn:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+        background: linear-gradient(135deg, #98d6bf 0%, #ccddb1 100%);
+      }
+
+      .copy-all-btn:active {
+        transform: translateY(0);
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+      }
+
+      .copy-all-btn svg {
+        width: 14px;
+        height: 14px;
+      }
+
+      #result::-webkit-scrollbar {
+        width: 8px;
+      }
+
+      #result::-webkit-scrollbar-track {
+        background: #f7fafc;
+        border-radius: 4px;
+      }
+
+      #result::-webkit-scrollbar-thumb {
+        background: #cbd5e0;
+        border-radius: 4px;
+      }
+
+      #result::-webkit-scrollbar-thumb:hover {
+        background: #a0aec0;
+      }
+
+      ol {
+        padding-left: 0;
+        margin: 0;
+        list-style: none;
+        counter-reset: item;
+      }
+
+      ol li {
+        counter-increment: item;
+        margin-bottom: 8px;
+        background: #ffffff;
+        border-radius: 10px;
+        padding: 14px 18px;
+        padding-left: 50px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+        color: #2d3748;
+        font-size: 13px;
+        word-break: break-all;
+        transition: all 0.2s ease;
+        border: 1px solid #e2e8f0;
+        position: relative;
+        line-height: 1.5;
+        cursor: pointer;
+        user-select: none;
+      }
+
+      ol li::before {
+        content: counter(item);
+        position: absolute;
+        left: 16px;
+        top: 50%;
+        transform: translateY(-50%);
+        background: linear-gradient(135deg, #a8e6cf 0%, #dcedc1 100%);
+        color: #2d3748;
+        width: 26px;
+        height: 26px;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 12px;
+        font-weight: 600;
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
+      }
+
+      ol li:hover {
+        transform: translateX(2px);
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+        border-color: #cbd5e0;
+        background: #f7fafc;
+      }
+
+      ol li:active {
+        transform: translateX(1px);
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+      }
+
+      .empty-state {
+        text-align: center;
+        padding: 50px 20px;
+        color: #a0aec0;
+        font-size: 14px;
+        font-weight: 400;
+      }
+
+      .help-section {
+        background: #ffffff;
+        border-top: 1px solid #e2e8f0;
+        padding: 14px 20px;
+        position: relative;
+        text-align: center;
+      }
+
+      .how-to-use {
+        font-size: 12px;
+        color: #718096;
+        cursor: pointer;
+        display: inline-block;
+        transition: color 0.2s ease;
+        text-decoration: none;
+        font-weight: 400;
+      }
+
+      .how-to-use:hover {
+        color: #4a5568;
+      }
+
+      .how-to-use .info-icon {
+        display: inline-block;
+        width: 14px;
+        height: 14px;
+        margin-right: 6px;
+        vertical-align: middle;
+        color: inherit;
+      }
+
+      .tips {
+        display: none;
+        position: absolute;
+        bottom: 100%;
+        left: 0;
+        right: 0;
+        background: #ffffff;
+        color: #4a5568;
+        padding: 16px 18px;
+        font-size: 12px;
+        line-height: 1.7;
+        border-radius: 8px 8px 0 0;
+        box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.08);
+        margin-bottom: 8px;
+        border: 1px solid #e2e8f0;
+        border-bottom: none;
+        max-width: 100%;
+        box-sizing: border-box;
+      }
+
+      .tips strong {
+        color: #2d3748;
+        font-weight: 600;
+      }
+
+      .tips code {
+        background: #f7fafc;
+        padding: 2px 6px;
+        border-radius: 4px;
+        font-family: 'Courier New', monospace;
+        font-size: 11px;
+        color: #2d3748;
+        border: 1px solid #e2e8f0;
+      }
+
+      .how-to-use:hover + .tips {
+        display: block;
+      }
+
+      /* Dark Mode Styles */
+      body.dark-mode {
+        background: linear-gradient(180deg, #1a202c 0%, #2d3748 100%);
+      }
+
+      body.dark-mode .header {
+        background: linear-gradient(135deg, #2c5282 0%, #553c9a 100%);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      body.dark-mode h1 {
+        color: #f7fafc;
+      }
+
+      body.dark-mode .version {
+        color: #cbd5e0;
+      }
+
+      body.dark-mode #result {
+        background: transparent;
+      }
+
+      body.dark-mode #result::-webkit-scrollbar-track {
+        background: #2d3748;
+      }
+
+      body.dark-mode #result::-webkit-scrollbar-thumb {
+        background: #4a5568;
+      }
+
+      body.dark-mode #result::-webkit-scrollbar-thumb:hover {
+        background: #718096;
+      }
+
+      body.dark-mode ol li {
+        background: #2d3748;
+        color: #e2e8f0;
+        border-color: #4a5568;
+      }
+
+      body.dark-mode ol li::before {
+        background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+        color: #ffffff;
+      }
+
+      body.dark-mode ol li:hover {
+        background: #374151;
+        border-color: #6b7280;
+      }
+
+      body.dark-mode .copy-all-btn {
+        background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+        color: #ffffff;
+        border-color: #48bb78;
+      }
+
+      body.dark-mode .copy-all-btn:hover {
+        background: linear-gradient(135deg, #38a169 0%, #2f855a 100%);
+      }
+
+      body.dark-mode .empty-state {
+        color: #9ca3af;
+      }
+
+      body.dark-mode .help-section {
+        background: #2d3748;
+        border-top: 1px solid #4a5568;
+      }
+
+      body.dark-mode .how-to-use {
+        color: #cbd5e0;
+      }
+
+      body.dark-mode .how-to-use:hover {
+        color: #f7fafc;
+      }
+
+      body.dark-mode .tips {
+        background: #374151;
+        color: #e2e8f0;
+        border-color: #4a5568;
+      }
+
+      body.dark-mode .tips strong {
+        color: #f7fafc;
+      }
+
+      body.dark-mode .tips code {
+        background: #2d3748;
+        color: #e2e8f0;
+        border-color: #4a5568;
+      }
     </style>
   </head>
   <body>
-    <h1>Email & Phone Scraper v0.1.1</h1>
+    <div class="header">
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+        <span class="sun-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" viewBox="0 0 16 16">
+            <path d="M8 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0zm0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13zm8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5zM3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8zm10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0zm-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0zm9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707zM4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708z"/>
+          </svg>
+        </span>
+        <span class="moon-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" viewBox="0 0 16 16">
+            <path d="M6 .278a.768.768 0 0 1 .08.858 7.208 7.208 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277.527 0 1.04-.055 1.533-.16a.787.787 0 0 1 .81.316.733.733 0 0 1-.031.893A8.349 8.349 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71 0 4.266 2.114 1.312 5.124.06A.752.752 0 0 1 6 .278z"/>
+          </svg>
+        </span>
+      </button>
+      <h1>Email & Phone Scraper</h1>
+      <div class="version">v0.1.1</div>
+    </div>
     <div id="result"></div>
-    <p class="how-to-use">For help (Hover me!)</p>
-    <p class="tips">Type a url e.g(yourwebsite.com "@gmail.com") and it will get you all the Emails from yourwebsite.com</p>
+    <div class="help-section">
+      <p class="how-to-use">
+        <svg class="info-icon" xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" viewBox="0 0 16 16">
+          <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451.081.082.381 1.29-.59z"/>
+          <path d="M8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/>
+        </svg>
+        For help (Hover me!)
+      </p>
+      <p class="tips">
+        <strong>How to filter results:</strong><br><br>
+        In your browser's address bar, search for a website and add a filter in quotes.<br><br>
+        <strong>Examples:</strong><br>
+        • <code>example.com "@gmail.com"</code> - Find Gmail addresses<br>
+        • <code>example.com "+92"</code> - Find phone numbers starting with +92<br>
+        • <code>example.com "@company.com"</code> - Find company emails<br><br>
+        The extension will automatically filter and display matching results when you open the popup.
+      </p>
+    </div>
+    <script src="assets/js/theme.js"></script>
     <script src="assets/js/popup.js"></script>
   </body>
 </html>
