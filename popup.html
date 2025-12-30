@@ -107,10 +107,15 @@
         overflow-y: auto;
       }
 
-      .copy-all-btn {
-        width: 100%;
-        padding: 10px 16px;
+      .button-container {
+        display: flex;
+        gap: 8px;
         margin-bottom: 12px;
+      }
+
+      .copy-all-btn {
+        flex: 1;
+        padding: 10px 16px;
         background: linear-gradient(135deg, #a8e6cf 0%, #dcedc1 100%);
         color: #2d3748;
         border: 1px solid #a8e6cf;
@@ -353,6 +358,50 @@
 
       body.dark-mode .copy-all-btn:hover {
         background: linear-gradient(135deg, #38a169 0%, #2f855a 100%);
+      }
+
+      .copy-python-btn {
+        flex: 1;
+        padding: 10px 16px;
+        background: linear-gradient(135deg, #ffd89b 0%, #ffecd2 100%);
+        color: #2d3748;
+        border: 1px solid #ffd89b;
+        border-radius: 10px;
+        font-size: 13px;
+        font-weight: 600;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        transition: all 0.2s ease;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+      }
+
+      .copy-python-btn:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+        background: linear-gradient(135deg, #ffcd8b 0%, #ffe2c2 100%);
+      }
+
+      .copy-python-btn:active {
+        transform: translateY(0);
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+      }
+
+      .copy-python-btn svg {
+        width: 14px;
+        height: 14px;
+      }
+
+      body.dark-mode .copy-python-btn {
+        background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+        color: #ffffff;
+        border-color: #f59e0b;
+      }
+
+      body.dark-mode .copy-python-btn:hover {
+        background: linear-gradient(135deg, #d97706 0%, #b45309 100%);
       }
 
       body.dark-mode .empty-state {

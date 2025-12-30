@@ -54,6 +54,10 @@ document.addEventListener("DOMContentLoaded", () => {
           );
         }
         if (results.length > 0) {
+          // Create button container
+          const buttonContainer = document.createElement("div");
+          buttonContainer.className = "button-container";
+          
           // Create copy all button
           const copyAllBtn = document.createElement("button");
           copyAllBtn.className = "copy-all-btn";
@@ -115,6 +119,71 @@ document.addEventListener("DOMContentLoaded", () => {
             }
           });
           
+          // Create copy Python format button
+          const copyPythonBtn = document.createElement("button");
+          copyPythonBtn.className = "copy-python-btn";
+          copyPythonBtn.innerHTML = `
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" viewBox="0 0 16 16">
+              <path d="M10.478 1.647a.5.5 0 1 0-.956-.294l-4 13a.5.5 0 0 0 .956.294l4-13zM4.854 4.146a.5.5 0 0 1 0 .708L1.707 8l3.147 3.146a.5.5 0 0 1-.708.708l-3.5-3.5a.5.5 0 0 1 0-.708l3.5-3.5a.5.5 0 0 1 .708 0zm6.292 0a.5.5 0 0 0 0 .708L14.293 8l-3.147 3.146a.5.5 0 0 0 .708.708l3.5-3.5a.5.5 0 0 0 0-.708l-3.5-3.5a.5.5 0 0 0-.708 0z"/>
+            </svg>
+            Copy Python
+          `;
+          copyPythonBtn.title = "Copy all items as Python strings (comma-separated)";
+          
+          // Add click event to copy as Python format
+          copyPythonBtn.addEventListener("click", async () => {
+            // Format as Python strings: "item1", "item2", "item3"
+            const pythonText = results.map(item => `"${item}"`).join(", ");
+            try {
+              await navigator.clipboard.writeText(pythonText);
+              // Visual feedback
+              const originalHTML = copyPythonBtn.innerHTML;
+              copyPythonBtn.innerHTML = `
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" viewBox="0 0 16 16">
+                  <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
+                </svg>
+                Copied!
+              `;
+              copyPythonBtn.style.color = "#48bb78";
+              
+              setTimeout(() => {
+                copyPythonBtn.innerHTML = originalHTML;
+                copyPythonBtn.style.color = "";
+              }, 2000);
+            } catch (err) {
+              // Fallback for older browsers
+              const textArea = document.createElement("textarea");
+              textArea.value = pythonText;
+              textArea.style.position = "fixed";
+              textArea.style.opacity = "0";
+              document.body.appendChild(textArea);
+              textArea.select();
+              try {
+                document.execCommand("copy");
+                const originalHTML = copyPythonBtn.innerHTML;
+                copyPythonBtn.innerHTML = `
+                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" viewBox="0 0 16 16">
+                    <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
+                  </svg>
+                  Copied!
+                `;
+                copyPythonBtn.style.color = "#48bb78";
+                
+                setTimeout(() => {
+                  copyPythonBtn.innerHTML = originalHTML;
+                  copyPythonBtn.style.color = "";
+                }, 2000);
+              } catch (fallbackErr) {
+                console.error("Failed to copy:", fallbackErr);
+              }
+              document.body.removeChild(textArea);
+            }
+          });
+          
+          // Add both buttons to container
+          buttonContainer.appendChild(copyAllBtn);
+          buttonContainer.appendChild(copyPythonBtn);
+          
           // Format results as an ordered list
           const list = document.createElement("ol");
           results.forEach((item) => {
@@ -173,7 +242,7 @@ document.addEventListener("DOMContentLoaded", () => {
             list.appendChild(li);
           });
           resultDiv.innerHTML = "";
-          resultDiv.appendChild(copyAllBtn);
+          resultDiv.appendChild(buttonContainer);
           resultDiv.appendChild(list);
         } else {
           resultDiv.innerHTML = '<div class="empty-state">No matches found.</div>';
